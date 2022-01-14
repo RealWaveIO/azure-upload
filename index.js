@@ -9,8 +9,6 @@ const { BlobServiceClient } = require('@azure/storage-blob');
     }
     console.log(`Uploading ${source} to ${target}`);
 
-    const sasToken = `https://realwave00shared.blob.core.windows.net/yesway?sp=racwdl&st=2022-01-13T22:51:54Z&se=2022-01-21T06:51:54Z&spr=https&sv=2020-08-04&sr=c&sig=qOcSDhzbJrQlsj69u3tNeT9a2JQwA7X1zobt63sMreQ%3D`;
-
     const matchResult = /(https:\/\/\w+.blob.core.windows.net\/)(\w+)(.+)/.exec(target);
 
     if (!matchResult) {
@@ -29,7 +27,11 @@ const { BlobServiceClient } = require('@azure/storage-blob');
     console.log({ container });
 
     const blobBlobClient = containerClient.getBlockBlobClient(source);
-    await blobBlobClient.uploadFile(source);
+    await blobBlobClient.uploadFile(source, {
+        onProgress: (ev) => {
+            console.log(`${ev.loadedBytes / 1024} KB`);
+        }
+    });
     console.log('Uploaded');
 
 }());
