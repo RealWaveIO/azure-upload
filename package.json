@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "bin": {
+    "azure-upload": "./index.js"
+  },
   "dependencies": {
     "@azure/storage-blob": "^12.8.0"
   }

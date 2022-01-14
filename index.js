@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const { BlobServiceClient } = require('@azure/storage-blob');
 
 (async function run() {
